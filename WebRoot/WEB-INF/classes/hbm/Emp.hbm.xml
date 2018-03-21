@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="entity">
+	<class name="Emp" table="T_EMP">
+		<id name="empno" column="EMPNO" type="java.lang.String">
+			<generator class="assigned">
+			</generator>
+		</id>
+		<property name="ename" column="ENAME" type="java.lang.String" />
+		<property name="password" column="PASSWORD" type="java.lang.String" />
+		<property name="status" column="STATUS" type="java.lang.String" />
+		<many-to-one name="dept" class="Dept" column="DEPTNO"></many-to-one>
+		<many-to-one name="position" class="Position" column="POSITION"></many-to-one>
+		<!--员工创建的报销单集合  -->
+		<set name="baoXiao1" table="T_BAOXIAO" inverse="true">
+			<key column="CREATE_EMPNO"></key><!--外键列是baoXiao1对应的类的对应的数据库表的外键列  -->
+			<one-to-many class="BaoXiao"/><!--多的一方所属的实体类,也就是说这堆报销单要找哪一个实体类  -->
+		</set>
+		<!--员工审核的报销单集合  -->
+		<set name="baoXiao2" table="T_BAOXIAO" inverse="true">
+			<key column="DEAL_EMPNO"></key>
+			<one-to-many class="BaoXiao"/>
+		</set>
+	</class>
+</hibernate-mapping>

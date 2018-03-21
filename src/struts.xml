@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+	<package name="empaction" extends="struts-default">
+		<!-- 用户登录 -->
+		<action name="EmpAction_login" class="action.EmpAction" method="login">
+			<result name="login">/index.jsp</result>
+			<result name="staff">/staff.jsp</result>
+			<result name="deptManager">/deptManager.jsp</result>
+			<result name="manager">/manager.jsp</result>
+			<result name="cashier">/cashier.jsp</result>
+		</action>
+		<!-- 注销登录，将用户从session中清除 -->
+		<action name="EmpAction_exit" class="action.EmpAction" method="exit">
+			<result name="login">/index.jsp</result>
+		</action>
+		
+		<!--返回首页  -->
+		<action name="retrunIndex" class="action.EmpAction" method="retrunIndex">
+			<result name="login">/index.jsp</result>
+			<result name="staff">/staff.jsp</result>
+			<result name="deptManager">/deptManager.jsp</result>
+			<result name="manager">/manager.jsp</result>
+			<result name="cashier">/cashier.jsp</result>
+		</action>
+		<!-- 添加报销单明细-->
+		<action name="BaoXiaoAction_addDetal" class="action.BaoXiaoAction" method="addDetal">
+			<result name="success">/addBaoXiao_detalSuccess.jsp</result>
+		</action>
+		<!-- 添加报销单到数据库-->
+		<action name="BaoXiaoAction_addBaoXiao" class="action.BaoXiaoAction" method="addBaoXiao">
+			<result name="success">/addBaoXiaoSuccess.jsp</result>
+			<result name="fail">/addBaoXiaoFail.jsp</result>
+		</action>
+		<!-- 查找该员工创建的所有报销单-->
+		<action name="BaoXiaoAction_findAll" class="action.BaoXiaoAction" method="findAll">
+			<result name="success">/showAllBaoXiao.jsp</result>
+			<result name="fail" type="chain">retrunIndex</result>
+		</action>
+		<!-- 查找一个报销单,不同员工对报销单进行不同的操作,员工执行修改，经理和总经理执行审核-->
+		<action name="BaoXiaoAction_findOneBX" class="action.BaoXiaoAction" method="findOneBX">
+			<result name="update">/updateBX.jsp</result>
+			<result name="check">/checkBX.jsp</result>
+		</action>
+		<!-- 员工修改一个报销单-->
+		<action name="BaoXiaoAction_updateBX" class="action.BaoXiaoAction" method="updateBX">
+			<result name="success" type="chain" >BaoXiaoAction_findAll</result>
+		</action>
+		<!-- 查找员工要审核的所有报销单-->
+		<action name="BaoXiaoAction_findWaitCheckBX" class="action.BaoXiaoAction" method="findWaitCheckBX">
+			<result name="success">/showWaitCheckBX.jsp</result>
+			<result name="fail" type="chain">retrunIndex</result>
+		</action>
+		
+		<!--部门经理审批报销单  -->
+		<action name="BaoXiaoAction_checkBX" class="action.BaoXiaoAction" method="checkBX">
+			<result name="success">/deptManager.jsp</result>
+		</action>
+		
+		<!--总经理审批报销单  -->
+		<action name="BaoXiaoAction_checkBX_manager" class="action.BaoXiaoAction" method="checkBX_manager">
+			<result name="success">/manager.jsp</result>
+		</action>
+		
+		<!--财务拨款  -->
+		<action name="BaoXiaoAction_pay" class="action.BaoXiaoAction" method="pay">
+			<result name="success">/cashier.jsp</result>
+		</action>
+	</package>
+</struts>

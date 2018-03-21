@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="entity">
+	<class name="BaoXiao" table="T_BAOXIAO">
+		<id name="bxid" column="BXID" type="java.lang.Integer">
+			<generator class="sequence">
+			<param name="sequence">seq_t_baoxiao_id</param>
+			</generator>
+		</id>
+		<property name="create_time" type="java.util.Date" />
+		<property name="modify_time" type="java.util.Date" />
+		<property name="status" type="java.lang.String" />
+		<property name="event" type="java.lang.String" />
+		<property name="total_account" type="java.lang.Double" />
+		<one-to-one name="result" class="Result" cascade="all"></one-to-one>
+		<many-to-one name="deal_empno" column="DEAL_EMPNO" class="Emp" fetch="join" lazy="false"></many-to-one>
+		<many-to-one name="create_empno" column="CREATE_EMPNO" class="Emp" fetch="join" lazy="false"></many-to-one>
+		<set name="detals" table="T_BAOXIAO_DETAL" cascade="all" inverse="true" fetch="join" lazy="false">
+			<key column="BXID"></key>
+			<one-to-many class="BaoXiao_Detal"/>
+		</set>
+	</class>
+</hibernate-mapping>

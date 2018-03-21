@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="entity">
+	<class name="Dept" table="T_DEPT">
+		<id name="deptno" column="DEPTNO" type="java.lang.Integer">
+			<generator class="assigned">
+			</generator>
+		</id>
+		<property name="dname" column="DNAME" type="java.lang.String" />
+		<set name="emps" table="T_EMP" cascade="save-update" inverse="true">
+			<key column="DEPTNO"></key>
+			<one-to-many class="Emp"/>
+		</set>
+	</class>
+</hibernate-mapping>

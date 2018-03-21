@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="entity">
+	<class name="Position" table="T_POSITION">
+		<id name="pid" column="PID" type="java.lang.Integer">
+			<generator class="assigned">
+			</generator>
+		</id>
+		<property name="pname" column="PNAME" type="java.lang.String" />
+		<set name="emps" table="T_EMP" cascade="save-update" inverse="true">
+			<key column="PID"></key>
+			<one-to-many class="Emp"/>
+		</set>
+	</class>
+</hibernate-mapping>

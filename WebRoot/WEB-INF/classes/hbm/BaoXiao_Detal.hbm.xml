@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="entity">
+	<class name="BaoXiao_Detal" table="T_BAOXIAO_DETAL">
+		<id name="id" column="ID" type="java.lang.Integer">
+			<generator class="sequence">
+			<param name="sequence">SEQ_T_BAOXIAO_DETAL_ID</param>
+			</generator>
+		</id>
+		<property name="item" column="ITEM" type="java.lang.String" />
+		<property name="des" column="DES" type="java.lang.String" />
+		<property name="account" column="ACCOUNT" type="java.lang.Double"/>
+		<many-to-one name="baoXiao" class="BaoXiao" column="BXID"></many-to-one>
+	</class>
+</hibernate-mapping>
